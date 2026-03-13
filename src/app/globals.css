@@ -61,10 +61,20 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */ /* Removed to allow flex: 1 for main to push footer down */
   text-align: center;
-  padding: 2rem;
+  padding: 1.5rem;
   overflow: hidden;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  z-index: 1;
 }
 
 .bg-image {
@@ -83,8 +93,8 @@ a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60vh;
-  height: 60vh;
+  width: min(60vh, 80vw);
+  height: min(60vh, 80vw);
   z-index: -1;
   opacity: 0.15;
   filter: invert(1);
@@ -94,13 +104,13 @@ a {
   font-family: var(--font-serif);
   font-weight: 400;
   font-style: normal;
-  font-size: 80px;
-  line-height: 90%;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1.1;
   letter-spacing: -0.03em;
-  /* -3% of font size */
   text-align: center;
   margin-bottom: 2rem;
   max-width: 1000px;
+  width: 100%;
 }
 
 .hero-subtitle {
@@ -114,25 +124,65 @@ a {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .footer-nav {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
+  align-items: center;
 }
 
 .header-logo {
   position: absolute;
   top: 2rem;
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
   letter-spacing: 0.05em;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .footer {
+    position: relative;
+    padding: 3rem 1.5rem;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    background: transparent;
+    margin-top: auto; /* Push to bottom of flex container */
+  }
+
+  .footer-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .footer-nav span:nth-child(2) {
+    display: none; /* Hide bullets on mobile */
+  }
+
+  .hero-title {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .header-logo {
+    top: 1rem;
+  }
+  .footer {
+    position: relative;
+    padding: 1rem;
+  }
 }
